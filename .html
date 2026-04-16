@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Can You Spot What's Fake?</title>
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      padding: 40px;
+    }
+    .page {
+      display: none;
+    }
+    .active {
+      display: block;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<div id="page1" class="page active">
+  <h1>Can You Spot What's Fake?</h1>
+  <p>This quiz helps you identify fake images and scam messages.</p>
+  <button onclick="nextPage(2)">Start</button>
+</div>
+
+<!-- PAGE 2 -->
+<div id="page2" class="page">
+  <h2>Question 1</h2>
+  <p>Would you click a link from a stranger?</p>
+  <button onclick="answer(0)">Yes</button>
+  <button onclick="answer(1)">No</button>
+  <button onclick="answer(0)">Maybe</button>
+</div>
+
+<!-- PAGE 3 -->
+<div id="page3" class="page">
+  <h2>Question 2</h2>
+  <p>Do you think this image is AI-generated?</p>
+  
+  <!-- 你可以换成自己的图片 -->
+  <img src="https://thispersondoesnotexist.com/" width="200"><br>
+  
+  <button onclick="answer(1)">AI</button>
+  <button onclick="answer(0)">Real</button>
+  <button onclick="answer(0)">Not sure</button>
+</div>
+
+<!-- PAGE 4 -->
+<div id="page4" class="page">
+  <h2>Your Result</h2>
+  <p id="resultText"></p>
+  <button onclick="location.reload()">Restart</button>
+</div>
+
+<script>
+let score = 0;
+
+function nextPage(pageNumber) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page' + pageNumber).classList.add('active');
+}
+
+function answer(point) {
+  score += point;
+
+  if (document.getElementById('page2').classList.contains('active')) {
+    nextPage(3);
+  } else if (document.getElementById('page3').classList.contains('active')) {
+    showResult();
+  }
+}
+
+function showResult() {
+  nextPage(4);
+
+  let text = "";
+  if (score <= 1) {
+    text = "You may be at risk online. Be careful with links and images.";
+  } else {
+    text = "You are cautious online. Keep it up!";
+  }
+
+  document.getElementById("resultText").innerText = text;
+}
+</script>
+
+</body>
+</html>
