@@ -1,4 +1,3 @@
-  <script>
     let totalScore = 0;
 
     function showPage(pageNumber) {
@@ -82,4 +81,3 @@
 
       showPage(1);
     }
-  </script>
