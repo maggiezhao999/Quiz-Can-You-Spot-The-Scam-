@@ -114,7 +114,7 @@ function showResult() {
     resultBox.classList.add("result-warning");
     resultTitle.innerText = "✍️ You are doing quite well, but stay careful.";
     resultText.innerText =
-      "You already show some good awareness, but some messages and images can still be misleading. Take your time and double-check before trust what you see.";
+      "You already show some good awareness, but some messages and images can still be misleading. Take your time and double check before trust what you see.";
   } else {
     resultBox.classList.add("result-success");
     resultTitle.innerText = "🎉 Great job staying alert online.";
