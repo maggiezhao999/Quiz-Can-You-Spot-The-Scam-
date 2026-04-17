@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Can You Spot the Scam?</title>
+  <title>Stay Sharp: Scam Awareness Quiz</title>
   <style>
     * {
       box-sizing: border-box;
@@ -12,22 +12,22 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #f6f4ef;
+      background: #f5f1ea;
       color: #222;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
       padding: 24px;
     }
 
     .container {
       width: 100%;
-      max-width: 760px;
-      background: white;
-      border-radius: 18px;
+      max-width: 820px;
+      background: #ffffff;
+      border-radius: 20px;
       padding: 40px 32px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 10px 32px rgba(0, 0, 0, 0.08);
     }
 
     .page {
@@ -45,24 +45,42 @@
 
     h1 {
       font-size: 2rem;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
     h2 {
-      font-size: 1.6rem;
-      margin-bottom: 18px;
+      font-size: 1.5rem;
+      margin-bottom: 16px;
     }
 
     p {
-      font-size: 1.1rem;
+      font-size: 1.08rem;
       line-height: 1.7;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
-    .question-count {
+    .question-number {
       font-size: 0.95rem;
       color: #666;
       margin-bottom: 12px;
+    }
+
+    .intro-box,
+    .result-box,
+    .feedback-box {
+      background: #f7f7f7;
+      border-radius: 14px;
+      padding: 18px;
+      margin: 20px 0;
+    }
+
+    .feedback-box {
+      border-left: 6px solid #2f6fed;
+    }
+
+    .result-box {
+      border-left: 6px solid #2f6fed;
+      background: #eef4ff;
     }
 
     .button-group {
@@ -75,55 +93,44 @@
     button {
       width: 100%;
       padding: 18px 20px;
-      font-size: 1rem;
       border: none;
       border-radius: 12px;
-      background: #1f4ed8;
-      color: white;
+      font-size: 1rem;
       cursor: pointer;
+      background: #2f6fed;
+      color: #fff;
       transition: 0.2s ease;
+      text-align: left;
+      line-height: 1.5;
     }
 
     button:hover {
-      background: #163fb2;
+      background: #2457bb;
     }
 
-    .secondary-btn {
-      background: #ececec;
-      color: #222;
+    .center-btn {
+      text-align: center;
     }
 
-    .secondary-btn:hover {
-      background: #dcdcdc;
+    .continue-btn,
+    .restart-btn {
+      text-align: center;
+      background: #1e1e1e;
     }
 
-    img {
-      width: 100%;
-      max-width: 340px;
-      display: block;
-      margin: 20px auto;
-      border-radius: 14px;
+    .continue-btn:hover,
+    .restart-btn:hover {
+      background: #000;
     }
 
-    .result-box {
-      background: #f1f5ff;
-      border-left: 6px solid #1f4ed8;
-      padding: 20px;
-      border-radius: 10px;
-      margin: 20px 0;
+    .hidden {
+      display: none;
     }
 
-    .tip-list {
+    .tips {
       padding-left: 20px;
       line-height: 1.8;
-      font-size: 1.05rem;
-    }
-
-    .intro-note {
-      background: #f7f7f7;
-      padding: 16px;
-      border-radius: 10px;
-      margin: 20px 0;
+      font-size: 1.02rem;
     }
 
     @media (max-width: 600px) {
@@ -136,7 +143,7 @@
       }
 
       h2 {
-        font-size: 1.35rem;
+        font-size: 1.3rem;
       }
 
       p, button {
@@ -149,139 +156,269 @@
   <div class="container">
 
     <!-- PAGE 1 -->
-    <div id="page1" class="page active">
-      <h1>Can You Spot the Scam?</h1>
+    <section id="page1" class="page active">
+      <h1>Stay Sharp: Scam Awareness Quiz</h1>
       <p>
-        This quiz is designed to help older adults think about online safety,
-        scam messages, suspicious links, and AI-generated images.
+        This quiz is designed to encourage older adults to stay alert online.
+        It focuses on real situations such as scam calls, fake urgency, money requests,
+        suspicious links, and AI-generated images.
       </p>
-      <div class="intro-note">
+
+      <div class="intro-box">
         <p>
-          It is not about blaming people for making mistakes. It is about showing
-          how confusing digital spaces can be, especially when fake images and
-          scams are becoming more common.
+          This is not a test to judge anyone. Many scams are designed to feel emotional,
+          urgent, and believable. The goal is to practice noticing warning signs and
+          making safer choices.
         </p>
       </div>
+
       <div class="button-group">
-        <button onclick="startQuiz()">Start Quiz</button>
+        <button class="center-btn" onclick="startQuiz()">Start Quiz</button>
       </div>
-    </div>
+    </section>
 
     <!-- PAGE 2 -->
-    <div id="page2" class="page">
-      <div class="question-count">Question 1 of 8</div>
-      <h2>If you get a text saying “Your package is delayed, click here,” what would you do?</h2>
-      <div class="button-group">
-        <button onclick="answerQuestion(0)">Click the link right away</button>
-        <button onclick="answerQuestion(0)">Reply to the message first</button>
-        <button onclick="answerQuestion(1)">Check the official delivery website first</button>
+    <section id="page2" class="page">
+      <div class="question-number">Question 1 of 8</div>
+      <h2>
+        You receive a text message that says:
+        “Your package is delayed. Click here to update delivery.”
+        What would you do?
+      </h2>
+
+      <div id="options1" class="button-group">
+        <button onclick="selectAnswer(1, 0, 'This could be fake. Scam messages often try to make you click quickly.')">
+          Click the link right away
+        </button>
+        <button onclick="selectAnswer(1, 1, 'Not bad, but it is still safer to check through an official website instead of replying.')">
+          Reply to the message and ask what happened
+        </button>
+        <button onclick="selectAnswer(1, 2, 'Great choice. Checking the official delivery website is a safer way to confirm.')">
+          Check the official delivery website or app first
+        </button>
       </div>
-    </div>
+
+      <div id="feedback1" class="feedback-box hidden">
+        <p id="feedbackText1"></p>
+        <button class="continue-btn" onclick="goNextPage(3)">Continue</button>
+      </div>
+    </section>
 
     <!-- PAGE 3 -->
-    <div id="page3" class="page">
-      <div class="question-count">Question 2 of 8</div>
-      <h2>A stranger online says you won a gift card. What do you do?</h2>
-      <div class="button-group">
-        <button onclick="answerQuestion(0)">Claim it immediately</button>
-        <button onclick="answerQuestion(1)">Ignore it</button>
-        <button onclick="answerQuestion(0)">Send your information to confirm</button>
+    <section id="page3" class="page">
+      <div class="question-number">Question 2 of 8</div>
+      <h2>
+        A message says:
+        “Congratulations! You won a free gift card.”
+        What would you do?
+      </h2>
+
+      <div id="options2" class="button-group">
+        <button onclick="selectAnswer(2, 0, 'Be careful. Offers that seem too good to be true are often scams.')">
+          Claim it immediately
+        </button>
+        <button onclick="selectAnswer(2, 2, 'Well done. Ignoring suspicious prizes is a smart and safe response.')">
+          Ignore it
+        </button>
+        <button onclick="selectAnswer(2, 1, 'That is more careful, but sharing personal information can still be risky.')">
+          Look at it first and consider giving your information
+        </button>
       </div>
-    </div>
+
+      <div id="feedback2" class="feedback-box hidden">
+        <p id="feedbackText2"></p>
+        <button class="continue-btn" onclick="goNextPage(4)">Continue</button>
+      </div>
+    </section>
 
     <!-- PAGE 4 -->
-    <div id="page4" class="page">
-      <div class="question-count">Question 3 of 8</div>
-      <h2>Someone asks for your verification code by phone or text. What should you do?</h2>
-      <div class="button-group">
-        <button onclick="answerQuestion(0)">Share the code</button>
-        <button onclick="answerQuestion(1)">Ignore and block them</button>
-        <button onclick="answerQuestion(0)">Ask them why they need it, then decide</button>
+    <section id="page4" class="page">
+      <div class="question-number">Question 3 of 8</div>
+      <h2>
+        You receive a message from your “grandchild”:
+        “Grandma/Grandpa, I’m in urgent trouble. I need $5000 for school right now.
+        Please don’t tell anyone.”
+        What would you do?
+      </h2>
+
+      <div id="options3" class="button-group">
+        <button onclick="selectAnswer(3, 0, 'This is very risky. Scammers often use fear, family, and urgency to pressure people.')">
+          Send the money immediately
+        </button>
+        <button onclick="selectAnswer(3, 1, 'You are being careful, which is good, but it is still best to confirm through another trusted person or phone number.')">
+          Reply and ask more questions
+        </button>
+        <button onclick="selectAnswer(3, 2, 'Excellent. Calling your grandchild or another family member directly is the safest step.')">
+          Call your grandchild or another family member to confirm first
+        </button>
       </div>
-    </div>
+
+      <div id="feedback3" class="feedback-box hidden">
+        <p id="feedbackText3"></p>
+        <button class="continue-btn" onclick="goNextPage(5)">Continue</button>
+      </div>
+    </section>
 
     <!-- PAGE 5 -->
-    <div id="page5" class="page">
-      <div class="question-count">Question 4 of 8</div>
-      <h2>Would you scan a QR code from a random poster or message?</h2>
-      <div class="button-group">
-        <button onclick="answerQuestion(0)">Yes, if it looks interesting</button>
-        <button onclick="answerQuestion(1)">No, not unless I trust the source</button>
-        <button onclick="answerQuestion(0)">Yes, because QR codes are usually safe</button>
+    <section id="page5" class="page">
+      <div class="question-number">Question 4 of 8</div>
+      <h2>
+        You receive a phone call. The caller uses your nickname and says:
+        “You are involved in a fraud case and must cooperate immediately.”
+        What would you do?
+      </h2>
+
+      <div id="options4" class="button-group">
+        <button onclick="selectAnswer(4, 0, 'This is dangerous. Scammers often pretend to be authorities to create panic.')">
+          Follow their instructions immediately
+        </button>
+        <button onclick="selectAnswer(4, 1, 'That is a better response, but it is even safer to contact official authorities through a verified number.')">
+          Stay calm and hang up
+        </button>
+        <button onclick="selectAnswer(4, 2, 'Very strong choice. Using an official, verified phone number helps protect you from impersonation scams.')">
+          Hang up and contact official authorities using a verified number
+        </button>
       </div>
-    </div>
+
+      <div id="feedback4" class="feedback-box hidden">
+        <p id="feedbackText4"></p>
+        <button class="continue-btn" onclick="goNextPage(6)">Continue</button>
+      </div>
+    </section>
 
     <!-- PAGE 6 -->
-    <div id="page6" class="page">
-      <div class="question-count">Question 5 of 8</div>
-      <h2>Look at this image. Do you think it is real or AI-generated?</h2>
-      <img src="https://thispersondoesnotexist.com/" alt="AI-generated face example" />
-      <div class="button-group">
-        <button onclick="answerQuestion(1)">AI-generated</button>
-        <button onclick="answerQuestion(0)">Real photo</button>
-        <button onclick="answerQuestion(0)">Not sure</button>
+    <section id="page6" class="page">
+      <div class="question-number">Question 5 of 8</div>
+      <h2>
+        Someone asks for your verification code by phone or text.
+        What should you do?
+      </h2>
+
+      <div id="options5" class="button-group">
+        <button onclick="selectAnswer(5, 0, 'Please be careful. Verification codes should never be shared with strangers.')">
+          Share the code
+        </button>
+        <button onclick="selectAnswer(5, 2, 'Great job. Ignoring and blocking is a strong way to protect your account.')">
+          Ignore the request and block them
+        </button>
+        <button onclick="selectAnswer(5, 1, 'That is more cautious, but continuing the conversation can still be risky.')">
+          Ask why they need it before deciding
+        </button>
       </div>
-    </div>
+
+      <div id="feedback5" class="feedback-box hidden">
+        <p id="feedbackText5"></p>
+        <button class="continue-btn" onclick="goNextPage(7)">Continue</button>
+      </div>
+    </section>
 
     <!-- PAGE 7 -->
-    <div id="page7" class="page">
-      <div class="question-count">Question 6 of 8</div>
-      <h2>A message says: “Urgent! Your bank account will be closed today unless you act now.” What is safest?</h2>
-      <div class="button-group">
-        <button onclick="answerQuestion(0)">Click immediately</button>
-        <button onclick="answerQuestion(0)">Reply with your details</button>
-        <button onclick="answerQuestion(1)">Contact the bank through its official website or phone number</button>
+    <section id="page7" class="page">
+      <div class="question-number">Question 6 of 8</div>
+      <h2>
+        Would you scan a QR code from a random poster, flyer, or text message?
+      </h2>
+
+      <div id="options6" class="button-group">
+        <button onclick="selectAnswer(6, 0, 'Be cautious. QR codes can also lead to scam websites.')">
+          Yes, if it looks interesting
+        </button>
+        <button onclick="selectAnswer(6, 2, 'Nice work. Trusting the source before scanning is a smart habit.')">
+          No, not unless I trust the source
+        </button>
+        <button onclick="selectAnswer(6, 1, 'That is somewhat careful, but QR codes are not always safe just because they look official.')">
+          Yes, if it looks clean or professional
+        </button>
       </div>
-    </div>
+
+      <div id="feedback6" class="feedback-box hidden">
+        <p id="feedbackText6"></p>
+        <button class="continue-btn" onclick="goNextPage(8)">Continue</button>
+      </div>
+    </section>
 
     <!-- PAGE 8 -->
-    <div id="page8" class="page">
-      <div class="question-count">Question 7 of 8</div>
-      <h2>An online profile has a very polished face photo. What should you remember?</h2>
-      <div class="button-group">
-        <button onclick="answerQuestion(0)">A polished photo means the person is trustworthy</button>
-        <button onclick="answerQuestion(1)">It could still be fake or AI-generated</button>
-        <button onclick="answerQuestion(0)">A clear image usually means it is real</button>
+    <section id="page8" class="page">
+      <div class="question-number">Question 7 of 8</div>
+      <h2>
+        Look at this image. Do you think it is a real photo or AI-generated?
+      </h2>
+
+      <div class="intro-box">
+        <p>
+          For now, this project uses a placeholder image.
+          Later, you can replace it with your own chosen example.
+        </p>
       </div>
-    </div>
+
+      <div id="options7" class="button-group">
+        <button onclick="selectAnswer(7, 2, 'Great observation. Even realistic faces online can be AI-generated.')">
+          AI-generated
+        </button>
+        <button onclick="selectAnswer(7, 0, 'This might be misleading. Some fake images look very realistic now.')">
+          Real photo
+        </button>
+        <button onclick="selectAnswer(7, 1, 'That is understandable. It can be hard to tell, which is exactly why extra caution matters.')">
+          Not sure
+        </button>
+      </div>
+
+      <div id="feedback7" class="feedback-box hidden">
+        <p id="feedbackText7"></p>
+        <button class="continue-btn" onclick="goNextPage(9)">Continue</button>
+      </div>
+    </section>
 
     <!-- PAGE 9 -->
-    <div id="page9" class="page">
-      <div class="question-count">Question 8 of 8</div>
-      <h2>Before trusting information online, what is the best thing to do?</h2>
-      <div class="button-group">
-        <button onclick="answerQuestion(0)">Share it quickly before it disappears</button>
-        <button onclick="answerQuestion(1)">Double-check the source</button>
-        <button onclick="answerQuestion(0)">Trust it if it looks professional</button>
+    <section id="page9" class="page">
+      <div class="question-number">Question 8 of 8</div>
+      <h2>
+        Before trusting information online, what is the best thing to do?
+      </h2>
+
+      <div id="options8" class="button-group">
+        <button onclick="selectAnswer(8, 0, 'It is safer not to rush. Professional-looking messages can still be fake.')">
+          Trust it if it looks professional
+        </button>
+        <button onclick="selectAnswer(8, 2, 'Excellent. Double-checking the source is one of the best habits for online safety.')">
+          Double-check the source
+        </button>
+        <button onclick="selectAnswer(8, 1, 'You are trying to act quickly, but sharing before checking can spread false information.')">
+          Share it with others first and ask later
+        </button>
       </div>
-    </div>
+
+      <div id="feedback8" class="feedback-box hidden">
+        <p id="feedbackText8"></p>
+        <button class="continue-btn" onclick="showResult()">See Result</button>
+      </div>
+    </section>
 
     <!-- PAGE 10 -->
-    <div id="page10" class="page">
+    <section id="page10" class="page">
       <h2>Your Result</h2>
+
       <div class="result-box">
         <p id="resultTitle"></p>
         <p id="resultText"></p>
       </div>
 
-      <h2>Safety Tips</h2>
-      <ul class="tip-list">
-        <li>Do not click unfamiliar links.</li>
-        <li>Do not share verification codes.</li>
-        <li>Check official websites instead of message links.</li>
-        <li>Be careful: realistic images can still be AI-generated.</li>
+      <h2>Reminder</h2>
+      <ul class="tips">
+        <li>Scammers often use urgency, fear, or family emotion.</li>
+        <li>It is always okay to pause and verify first.</li>
+        <li>Do not trust a message just because it sounds personal or official.</li>
+        <li>AI images and fake identities can look very real.</li>
       </ul>
 
       <div class="button-group">
-        <button onclick="restartQuiz()" class="secondary-btn">Restart Quiz</button>
+        <button class="restart-btn" onclick="restartQuiz()">Restart Quiz</button>
       </div>
-    </div>
-
+    </section>
   </div>
 
   <script>
-    let currentQuestion = 1;
-    let score = 0;
+    let totalScore = 0;
 
     function showPage(pageNumber) {
       const pages = document.querySelectorAll(".page");
@@ -291,52 +428,77 @@
 
     function startQuiz() {
       localStorage.clear();
-      currentQuestion = 1;
-      score = 0;
+      totalScore = 0;
       showPage(2);
     }
 
-    function answerQuestion(point) {
-      score += point;
+    function selectAnswer(questionNumber, points, feedbackText) {
+      totalScore += points;
 
-      localStorage.setItem("question" + currentQuestion, point);
-      localStorage.setItem("currentScore", score);
+      localStorage.setItem("question" + questionNumber, points);
+      localStorage.setItem("totalScore", totalScore);
 
-      currentQuestion++;
+      document.getElementById("options" + questionNumber).classList.add("hidden");
+      document.getElementById("feedbackText" + questionNumber).innerText = feedbackText;
+      document.getElementById("feedback" + questionNumber).classList.remove("hidden");
+    }
 
-      if (currentQuestion <= 8) {
-        showPage(currentQuestion + 1);
-      } else {
-        showResult();
+    function goNextPage(pageNumber) {
+      const previousQuestion = pageNumber - 1;
+
+      if (document.getElementById("options" + previousQuestion)) {
+        document.getElementById("options" + previousQuestion).classList.remove("hidden");
       }
+
+      if (document.getElementById("feedback" + previousQuestion)) {
+        document.getElementById("feedback" + previousQuestion).classList.add("hidden");
+      }
+
+      showPage(pageNumber);
     }
 
     function showResult() {
-      localStorage.setItem("finalScore", score);
+      localStorage.setItem("finalScore", totalScore);
+
+      if (document.getElementById("options8")) {
+        document.getElementById("options8").classList.remove("hidden");
+      }
+
+      if (document.getElementById("feedback8")) {
+        document.getElementById("feedback8").classList.add("hidden");
+      }
+
       showPage(10);
 
       const resultTitle = document.getElementById("resultTitle");
       const resultText = document.getElementById("resultText");
 
-      if (score <= 3) {
-        resultTitle.innerText = "High Risk";
+      if (totalScore <= 6) {
+        resultTitle.innerText = "You are still building scam awareness.";
         resultText.innerText =
-          "You may be more vulnerable to scams and misleading online content. Online messages, links, and AI-generated images can be very convincing, so it is important to slow down and verify before trusting them.";
-      } else if (score <= 6) {
-        resultTitle.innerText = "Somewhat Cautious";
+          "That is okay. Many scams are designed to feel personal, urgent, and believable. A helpful next step is to pause, verify, and check with trusted sources before acting.";
+      } else if (totalScore <= 11) {
+        resultTitle.innerText = "You are doing fairly well, but stay careful.";
         resultText.innerText =
-          "You notice some online risks, but some scam messages or fake images may still be difficult to judge. Keep checking carefully before clicking, replying, or trusting what you see.";
+          "You already show some strong instincts, and that is a great start. Still, scammers are becoming more convincing, especially with personal details and AI-generated content.";
       } else {
-        resultTitle.innerText = "Digitally Aware";
+        resultTitle.innerText = "Great job staying alert online.";
         resultText.innerText =
-          "You have a strong sense of online safety. You are careful with suspicious links, scam messages, and fake images. Keep using that caution when navigating digital spaces.";
+          "You show strong scam awareness and good caution in digital situations. Keep taking your time, checking official sources, and staying thoughtful before trusting a message or image.";
       }
     }
 
     function restartQuiz() {
       localStorage.clear();
-      currentQuestion = 1;
-      score = 0;
+      totalScore = 0;
+
+      for (let i = 1; i <= 8; i++) {
+        const options = document.getElementById("options" + i);
+        const feedback = document.getElementById("feedback" + i);
+        if (options) options.classList.remove("hidden");
+        if (feedback) feedback.classList.add("hidden");
+      }
+
       showPage(1);
     }
   </script>
