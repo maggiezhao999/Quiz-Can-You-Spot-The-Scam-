@@ -1,96 +1,344 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Can You Spot What's Fake?</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Can You Spot the Scam?</title>
   <style>
-    body {
-      font-family: Arial;
-      text-align: center;
-      padding: 40px;
+    * {
+      box-sizing: border-box;
     }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f6f4ef;
+      color: #222;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 760px;
+      background: white;
+      border-radius: 18px;
+      padding: 40px 32px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    }
+
     .page {
       display: none;
     }
-    .active {
+
+    .page.active {
       display: block;
     }
+
+    h1, h2 {
+      margin-top: 0;
+      line-height: 1.3;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      margin-bottom: 18px;
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .question-count {
+      font-size: 0.95rem;
+      color: #666;
+      margin-bottom: 12px;
+    }
+
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 24px;
+    }
+
     button {
-      padding: 10px 20px;
-      margin: 10px;
-      font-size: 16px;
+      width: 100%;
+      padding: 18px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 12px;
+      background: #1f4ed8;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    button:hover {
+      background: #163fb2;
+    }
+
+    .secondary-btn {
+      background: #ececec;
+      color: #222;
+    }
+
+    .secondary-btn:hover {
+      background: #dcdcdc;
+    }
+
+    img {
+      width: 100%;
+      max-width: 340px;
+      display: block;
+      margin: 20px auto;
+      border-radius: 14px;
+    }
+
+    .result-box {
+      background: #f1f5ff;
+      border-left: 6px solid #1f4ed8;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+
+    .tip-list {
+      padding-left: 20px;
+      line-height: 1.8;
+      font-size: 1.05rem;
+    }
+
+    .intro-note {
+      background: #f7f7f7;
+      padding: 16px;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 28px 20px;
+      }
+
+      h1 {
+        font-size: 1.7rem;
+      }
+
+      h2 {
+        font-size: 1.35rem;
+      }
+
+      p, button {
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
-
 <body>
+  <div class="container">
 
-<!-- PAGE 1 -->
-<div id="page1" class="page active">
-  <h1>Can You Spot What's Fake?</h1>
-  <p>This quiz helps you identify fake images and scam messages.</p>
-  <button onclick="nextPage(2)">Start</button>
-</div>
+    <!-- PAGE 1 -->
+    <div id="page1" class="page active">
+      <h1>Can You Spot the Scam?</h1>
+      <p>
+        This quiz is designed to help older adults think about online safety,
+        scam messages, suspicious links, and AI-generated images.
+      </p>
+      <div class="intro-note">
+        <p>
+          It is not about blaming people for making mistakes. It is about showing
+          how confusing digital spaces can be, especially when fake images and
+          scams are becoming more common.
+        </p>
+      </div>
+      <div class="button-group">
+        <button onclick="startQuiz()">Start Quiz</button>
+      </div>
+    </div>
 
-<!-- PAGE 2 -->
-<div id="page2" class="page">
-  <h2>Question 1</h2>
-  <p>Would you click a link from a stranger?</p>
-  <button onclick="answer(0)">Yes</button>
-  <button onclick="answer(1)">No</button>
-  <button onclick="answer(0)">Maybe</button>
-</div>
+    <!-- PAGE 2 -->
+    <div id="page2" class="page">
+      <div class="question-count">Question 1 of 8</div>
+      <h2>If you get a text saying “Your package is delayed, click here,” what would you do?</h2>
+      <div class="button-group">
+        <button onclick="answerQuestion(0)">Click the link right away</button>
+        <button onclick="answerQuestion(0)">Reply to the message first</button>
+        <button onclick="answerQuestion(1)">Check the official delivery website first</button>
+      </div>
+    </div>
 
-<!-- PAGE 3 -->
-<div id="page3" class="page">
-  <h2>Question 2</h2>
-  <p>Do you think this image is AI-generated?</p>
-  
-  <!-- 你可以换成自己的图片 -->
-  <img src="https://thispersondoesnotexist.com/" width="200"><br>
-  
-  <button onclick="answer(1)">AI</button>
-  <button onclick="answer(0)">Real</button>
-  <button onclick="answer(0)">Not sure</button>
-</div>
+    <!-- PAGE 3 -->
+    <div id="page3" class="page">
+      <div class="question-count">Question 2 of 8</div>
+      <h2>A stranger online says you won a gift card. What do you do?</h2>
+      <div class="button-group">
+        <button onclick="answerQuestion(0)">Claim it immediately</button>
+        <button onclick="answerQuestion(1)">Ignore it</button>
+        <button onclick="answerQuestion(0)">Send your information to confirm</button>
+      </div>
+    </div>
 
-<!-- PAGE 4 -->
-<div id="page4" class="page">
-  <h2>Your Result</h2>
-  <p id="resultText"></p>
-  <button onclick="location.reload()">Restart</button>
-</div>
+    <!-- PAGE 4 -->
+    <div id="page4" class="page">
+      <div class="question-count">Question 3 of 8</div>
+      <h2>Someone asks for your verification code by phone or text. What should you do?</h2>
+      <div class="button-group">
+        <button onclick="answerQuestion(0)">Share the code</button>
+        <button onclick="answerQuestion(1)">Ignore and block them</button>
+        <button onclick="answerQuestion(0)">Ask them why they need it, then decide</button>
+      </div>
+    </div>
 
-<script>
-let score = 0;
+    <!-- PAGE 5 -->
+    <div id="page5" class="page">
+      <div class="question-count">Question 4 of 8</div>
+      <h2>Would you scan a QR code from a random poster or message?</h2>
+      <div class="button-group">
+        <button onclick="answerQuestion(0)">Yes, if it looks interesting</button>
+        <button onclick="answerQuestion(1)">No, not unless I trust the source</button>
+        <button onclick="answerQuestion(0)">Yes, because QR codes are usually safe</button>
+      </div>
+    </div>
 
-function nextPage(pageNumber) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('page' + pageNumber).classList.add('active');
-}
+    <!-- PAGE 6 -->
+    <div id="page6" class="page">
+      <div class="question-count">Question 5 of 8</div>
+      <h2>Look at this image. Do you think it is real or AI-generated?</h2>
+      <img src="https://thispersondoesnotexist.com/" alt="AI-generated face example" />
+      <div class="button-group">
+        <button onclick="answerQuestion(1)">AI-generated</button>
+        <button onclick="answerQuestion(0)">Real photo</button>
+        <button onclick="answerQuestion(0)">Not sure</button>
+      </div>
+    </div>
 
-function answer(point) {
-  score += point;
+    <!-- PAGE 7 -->
+    <div id="page7" class="page">
+      <div class="question-count">Question 6 of 8</div>
+      <h2>A message says: “Urgent! Your bank account will be closed today unless you act now.” What is safest?</h2>
+      <div class="button-group">
+        <button onclick="answerQuestion(0)">Click immediately</button>
+        <button onclick="answerQuestion(0)">Reply with your details</button>
+        <button onclick="answerQuestion(1)">Contact the bank through its official website or phone number</button>
+      </div>
+    </div>
 
-  if (document.getElementById('page2').classList.contains('active')) {
-    nextPage(3);
-  } else if (document.getElementById('page3').classList.contains('active')) {
-    showResult();
-  }
-}
+    <!-- PAGE 8 -->
+    <div id="page8" class="page">
+      <div class="question-count">Question 7 of 8</div>
+      <h2>An online profile has a very polished face photo. What should you remember?</h2>
+      <div class="button-group">
+        <button onclick="answerQuestion(0)">A polished photo means the person is trustworthy</button>
+        <button onclick="answerQuestion(1)">It could still be fake or AI-generated</button>
+        <button onclick="answerQuestion(0)">A clear image usually means it is real</button>
+      </div>
+    </div>
 
-function showResult() {
-  nextPage(4);
+    <!-- PAGE 9 -->
+    <div id="page9" class="page">
+      <div class="question-count">Question 8 of 8</div>
+      <h2>Before trusting information online, what is the best thing to do?</h2>
+      <div class="button-group">
+        <button onclick="answerQuestion(0)">Share it quickly before it disappears</button>
+        <button onclick="answerQuestion(1)">Double-check the source</button>
+        <button onclick="answerQuestion(0)">Trust it if it looks professional</button>
+      </div>
+    </div>
 
-  let text = "";
-  if (score <= 1) {
-    text = "You may be at risk online. Be careful with links and images.";
-  } else {
-    text = "You are cautious online. Keep it up!";
-  }
+    <!-- PAGE 10 -->
+    <div id="page10" class="page">
+      <h2>Your Result</h2>
+      <div class="result-box">
+        <p id="resultTitle"></p>
+        <p id="resultText"></p>
+      </div>
 
-  document.getElementById("resultText").innerText = text;
-}
-</script>
+      <h2>Safety Tips</h2>
+      <ul class="tip-list">
+        <li>Do not click unfamiliar links.</li>
+        <li>Do not share verification codes.</li>
+        <li>Check official websites instead of message links.</li>
+        <li>Be careful: realistic images can still be AI-generated.</li>
+      </ul>
 
+      <div class="button-group">
+        <button onclick="restartQuiz()" class="secondary-btn">Restart Quiz</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    let currentQuestion = 1;
+    let score = 0;
+
+    function showPage(pageNumber) {
+      const pages = document.querySelectorAll(".page");
+      pages.forEach(page => page.classList.remove("active"));
+      document.getElementById("page" + pageNumber).classList.add("active");
+    }
+
+    function startQuiz() {
+      localStorage.clear();
+      currentQuestion = 1;
+      score = 0;
+      showPage(2);
+    }
+
+    function answerQuestion(point) {
+      score += point;
+
+      localStorage.setItem("question" + currentQuestion, point);
+      localStorage.setItem("currentScore", score);
+
+      currentQuestion++;
+
+      if (currentQuestion <= 8) {
+        showPage(currentQuestion + 1);
+      } else {
+        showResult();
+      }
+    }
+
+    function showResult() {
+      localStorage.setItem("finalScore", score);
+      showPage(10);
+
+      const resultTitle = document.getElementById("resultTitle");
+      const resultText = document.getElementById("resultText");
+
+      if (score <= 3) {
+        resultTitle.innerText = "High Risk";
+        resultText.innerText =
+          "You may be more vulnerable to scams and misleading online content. Online messages, links, and AI-generated images can be very convincing, so it is important to slow down and verify before trusting them.";
+      } else if (score <= 6) {
+        resultTitle.innerText = "Somewhat Cautious";
+        resultText.innerText =
+          "You notice some online risks, but some scam messages or fake images may still be difficult to judge. Keep checking carefully before clicking, replying, or trusting what you see.";
+      } else {
+        resultTitle.innerText = "Digitally Aware";
+        resultText.innerText =
+          "You have a strong sense of online safety. You are careful with suspicious links, scam messages, and fake images. Keep using that caution when navigating digital spaces.";
+      }
+    }
+
+    function restartQuiz() {
+      localStorage.clear();
+      currentQuestion = 1;
+      score = 0;
+      showPage(1);
+    }
+  </script>
 </body>
 </html>
