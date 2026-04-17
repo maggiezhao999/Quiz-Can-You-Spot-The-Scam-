@@ -9,7 +9,36 @@ function showPage(pageNumber) {
 function startQuiz() {
   localStorage.clear();
   totalScore = 0;
+  resetAllFeedbackStyles();
   showPage(2);
+}
+
+function getFeedbackConfig(points) {
+  if (points === 0) {
+    return {
+      emoji: "⚠️",
+      feedbackClass: "feedback-danger",
+      buttonClass: "btn-danger"
+    };
+  } else if (points === 1) {
+    return {
+      emoji: "✍️",
+      feedbackClass: "feedback-warning",
+      buttonClass: "btn-warning"
+    };
+  } else {
+    return {
+      emoji: "🎉",
+      feedbackClass: "feedback-success",
+      buttonClass: "btn-success"
+    };
+  }
+}
+
+function clearStateClasses(element) {
+  element.classList.remove("feedback-danger", "feedback-warning", "feedback-success");
+  element.classList.remove("result-danger", "result-warning", "result-success");
+  element.classList.remove("btn-danger", "btn-warning", "btn-success");
 }
 
 function selectAnswer(questionNumber, points, feedbackText) {
@@ -18,20 +47,37 @@ function selectAnswer(questionNumber, points, feedbackText) {
   localStorage.setItem("question" + questionNumber, points);
   localStorage.setItem("totalScore", totalScore);
 
-  document.getElementById("options" + questionNumber).classList.add("hidden");
-  document.getElementById("feedbackText" + questionNumber).innerText = feedbackText;
-  document.getElementById("feedback" + questionNumber).classList.remove("hidden");
+  const optionsBox = document.getElementById("options" + questionNumber);
+  const feedbackBox = document.getElementById("feedback" + questionNumber);
+  const feedbackTextEl = document.getElementById("feedbackText" + questionNumber);
+  const continueBtn = feedbackBox.querySelector(".continue-btn");
+
+  const config = getFeedbackConfig(points);
+
+  optionsBox.classList.add("hidden");
+
+  clearStateClasses(feedbackBox);
+  clearStateClasses(continueBtn);
+
+  feedbackBox.classList.add(config.feedbackClass);
+  continueBtn.classList.add(config.buttonClass);
+
+  feedbackTextEl.innerText = `${config.emoji} ${feedbackText}`;
+  feedbackBox.classList.remove("hidden");
 }
 
 function goNextPage(pageNumber) {
   const previousQuestion = pageNumber - 1;
 
-  if (document.getElementById("options" + previousQuestion)) {
-    document.getElementById("options" + previousQuestion).classList.remove("hidden");
+  const previousOptions = document.getElementById("options" + previousQuestion);
+  const previousFeedback = document.getElementById("feedback" + previousQuestion);
+
+  if (previousOptions) {
+    previousOptions.classList.remove("hidden");
   }
 
-  if (document.getElementById("feedback" + previousQuestion)) {
-    document.getElementById("feedback" + previousQuestion).classList.add("hidden");
+  if (previousFeedback) {
+    previousFeedback.classList.add("hidden");
   }
 
   showPage(pageNumber);
@@ -40,31 +86,59 @@ function goNextPage(pageNumber) {
 function showResult() {
   localStorage.setItem("finalScore", totalScore);
 
-  if (document.getElementById("options6")) {
-    document.getElementById("options6").classList.remove("hidden");
+  const lastOptions = document.getElementById("options6");
+  const lastFeedback = document.getElementById("feedback6");
+
+  if (lastOptions) {
+    lastOptions.classList.remove("hidden");
   }
 
-  if (document.getElementById("feedback6")) {
-    document.getElementById("feedback6").classList.add("hidden");
+  if (lastFeedback) {
+    lastFeedback.classList.add("hidden");
   }
 
   showPage(10);
 
+  const resultBox = document.querySelector(".result-box");
   const resultTitle = document.getElementById("resultTitle");
   const resultText = document.getElementById("resultText");
 
-  if (totalScore <= 6) {
-    resultTitle.innerText = "You are still building scam awareness.";
+  clearStateClasses(resultBox);
+
+  if (totalScore <= 4) {
+    resultBox.classList.add("result-danger");
+    resultTitle.innerText = "⚠️ You are still building scam awareness.";
     resultText.innerText =
-      "That is okay. Many scams are designed to feel personal, urgent, and believable. A helpful next step is to pause, verify, and check with trusted sources before acting.";
+      "Many scams are designed to feel urgent, personal, and believable. A helpful next step is to pause, verify, and check with trusted sources before acting.";
   } else if (totalScore <= 8) {
-    resultTitle.innerText = "You are doing fairly well, but stay careful.";
+    resultBox.classList.add("result-warning");
+    resultTitle.innerText = "✍️ You are doing fairly well, but stay careful.";
     resultText.innerText =
-      "You already show some strong instincts, and that is a great start. Still, scammers are becoming more convincing, especially with personal details and AI-generated content.";
+      "You already show some good instincts, but some messages and images can still be misleading. Take your time and double-check before trusting what you see.";
   } else {
-    resultTitle.innerText = "Great job staying alert online.";
+    resultBox.classList.add("result-success");
+    resultTitle.innerText = "🎉 Great job staying alert online.";
     resultText.innerText =
-      "You show strong scam awareness and good caution in digital situations. Keep taking your time, checking official sources, and staying thoughtful before trusting a message or image.";
+      "You show strong scam awareness and good caution in digital situations. Keep checking official sources and staying thoughtful before trusting a message or image.";
+  }
+}
+
+function resetAllFeedbackStyles() {
+  for (let i = 1; i <= 6; i++) {
+    const feedbackBox = document.getElementById("feedback" + i);
+    if (feedbackBox) {
+      clearStateClasses(feedbackBox);
+    }
+
+    const continueBtn = feedbackBox ? feedbackBox.querySelector(".continue-btn") : null;
+    if (continueBtn) {
+      clearStateClasses(continueBtn);
+    }
+  }
+
+  const resultBox = document.querySelector(".result-box");
+  if (resultBox) {
+    clearStateClasses(resultBox);
   }
 }
 
@@ -75,9 +149,20 @@ function restartQuiz() {
   for (let i = 1; i <= 6; i++) {
     const options = document.getElementById("options" + i);
     const feedback = document.getElementById("feedback" + i);
+    const feedbackText = document.getElementById("feedbackText" + i);
+
     if (options) options.classList.remove("hidden");
     if (feedback) feedback.classList.add("hidden");
+    if (feedbackText) feedbackText.innerText = "";
+
+    if (feedback) clearStateClasses(feedback);
+
+    const continueBtn = feedback ? feedback.querySelector(".continue-btn") : null;
+    if (continueBtn) clearStateClasses(continueBtn);
   }
+
+  const resultBox = document.querySelector(".result-box");
+  if (resultBox) clearStateClasses(resultBox);
 
   showPage(1);
 }
