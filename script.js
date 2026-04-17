@@ -109,17 +109,17 @@ function showResult() {
     resultBox.classList.add("result-danger");
     resultTitle.innerText = "⚠️ You are still building scam awareness.";
     resultText.innerText =
-      "Many scams are designed to feel urgent, personal, and believable. A helpful next step is to pause, verify, and check with trusted sources before acting.";
+      "Many scams are designed to feel urgent and believable. Please verify and check with trusted sources before acting.";
   } else if (totalScore <= 8) {
     resultBox.classList.add("result-warning");
-    resultTitle.innerText = "✍️ You are doing fairly well, but stay careful.";
+    resultTitle.innerText = "✍️ You are doing quite well, but stay careful.";
     resultText.innerText =
-      "You already show some good instincts, but some messages and images can still be misleading. Take your time and double-check before trusting what you see.";
+      "You already show some good awareness, but some messages and images can still be misleading. Take your time and double-check before trust what you see.";
   } else {
     resultBox.classList.add("result-success");
     resultTitle.innerText = "🎉 Great job staying alert online.";
     resultText.innerText =
-      "You show strong scam awareness and good caution in digital situations. Keep checking official sources and staying thoughtful before trusting a message or image.";
+      "You show strong scam awareness. Keep checking official sources and keep thoughtful before trusting a message or image.";
   }
 }
 
