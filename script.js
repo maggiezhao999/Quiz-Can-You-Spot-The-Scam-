@@ -57,7 +57,7 @@
         resultTitle.innerText = "You are still building scam awareness.";
         resultText.innerText =
           "That is okay. Many scams are designed to feel personal, urgent, and believable. A helpful next step is to pause, verify, and check with trusted sources before acting.";
-      } else if (totalScore <= 11) {
+      } else if (totalScore <= 8) {
         resultTitle.innerText = "You are doing fairly well, but stay careful.";
         resultText.innerText =
           "You already show some strong instincts, and that is a great start. Still, scammers are becoming more convincing, especially with personal details and AI-generated content.";
@@ -72,7 +72,7 @@
       localStorage.clear();
       totalScore = 0;
 
-      for (let i = 1; i <= 8; i++) {
+      for (let i = 1; i <= 6; i++)
         const options = document.getElementById("options" + i);
         const feedback = document.getElementById("feedback" + i);
         if (options) options.classList.remove("hidden");
